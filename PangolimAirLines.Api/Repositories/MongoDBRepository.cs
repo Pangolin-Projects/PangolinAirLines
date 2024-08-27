@@ -8,13 +8,13 @@ namespace PangolimAirLines.Api.Repositories
 {
     public class MongoDBRepository : IMongoDBRepository
     {
-        private readonly IMongoCollection<Organizations> _loginCollection;
+        private readonly IMongoCollection<Organizations> _organizationCollection;
         private readonly IMongoCollection<Flights> _flightsCollection;
         public MongoDBRepository(IOptions<MongoDBSettings> mongoDBSettings)
         {
             MongoClient client = new MongoClient(mongoDBSettings.Value.ConnectionURI);
             IMongoDatabase database = client.GetDatabase(mongoDBSettings.Value.DatabaseName);
-            _loginCollection = database.GetCollection<Organizations>(mongoDBSettings.Value.LoginCollection);
+            _organizationCollection = database.GetCollection<Organizations>(mongoDBSettings.Value.OrganizationCollection);
             _flightsCollection = database.GetCollection<Flights>(mongoDBSettings.Value.FlightsCollection);
         }
 
@@ -22,7 +22,7 @@ namespace PangolimAirLines.Api.Repositories
         {
             return;
         }
-        public async Task CreateAsync(Flights fly)
+        public async Task CreateFlightsAsync(Flights fly)
         {
             await _flightsCollection.InsertOneAsync(fly);
             return;

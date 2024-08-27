@@ -6,7 +6,7 @@ namespace PangolimAirLines.Api.Repositories
     public interface IMongoDBRepository
     {
         Task Login(Organizations organization);
-        Task CreateAsync(Flights fly);
+        Task CreateFlightsAsync(Flights fly);
         Task CreateManyAsync(List<Flights> fly);
         Task<Flights> GetOneAsync(string id);
         Task<List<Flights>> GetAllAsync();
