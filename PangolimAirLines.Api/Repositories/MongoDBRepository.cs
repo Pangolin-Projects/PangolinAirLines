@@ -1,5 +1,4 @@
-﻿using DnsClient;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using PangolimAirLines.Api.Data;
 using PangolimAirLines.Api.Models;
@@ -18,9 +17,17 @@ namespace PangolimAirLines.Api.Repositories
             _flightsCollection = database.GetCollection<Flights>(mongoDBSettings.Value.FlightsCollection);
         }
 
-        public async Task Login(Organizations organization)
+        public async Task<bool> Login(Organizations organization)
         {
-            return;
+            FilterDefinition<Organizations> filter = Builders<Organizations>.Filter.Eq("Email", organization.Email);
+            var obj = await _organizationCollection.Find(filter).FirstOrDefaultAsync();
+
+            if (obj.Password == organization.Password)
+            {
+                return true;
+            }
+
+            return false;
         }
         public async Task CreateFlightsAsync(Flights fly)
         {
