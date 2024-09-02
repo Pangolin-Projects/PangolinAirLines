@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PangolimAirLines.Api.Models;
 using PangolimAirLines.Api.Repositories;
+using PangolimAirLines.Api.Services;
 
 namespace PangolimAirLines.Api.Controllers
 {
@@ -15,14 +16,17 @@ namespace PangolimAirLines.Api.Controllers
         }
 
         [HttpGet("v1/Login")]
-        public async Task<IActionResult> Login(
+        public async Task<ActionResult<dynamic>> Login(
             [FromBody] Organizations model)
         {
             var result = await _dbRepository.Login(model);
             if (result == true)
-                 return Ok("You are logged");//add feature - return the jwt token
+            {
+                var token = TokenService.GenerateToken(model);
+                return token;
+            }
             else 
-                return BadRequest("Your user or password is wrong");     
+                return BadRequest("Your user or password is wrong");
         }
     }
 }
