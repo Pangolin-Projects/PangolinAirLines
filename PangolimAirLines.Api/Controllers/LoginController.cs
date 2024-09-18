@@ -8,14 +8,14 @@ namespace PangolimAirLines.Api.Controllers
     [ApiController]
     public class LoginController : ControllerBase
     {
-        private readonly IMongoDBRepository _dbRepository;
+        private readonly IMongoDbRepository _dbRepository;
 
-        public LoginController(IMongoDBRepository dbRepository)
+        public LoginController(IMongoDbRepository dbRepository)
         {
             _dbRepository = dbRepository;
         }
 
-        [HttpGet("v1/Login")]
+        [HttpPost("v1/Login")]
         public async Task<ActionResult<dynamic>> Login(
             [FromBody] Organizations model)
         {
@@ -28,5 +28,6 @@ namespace PangolimAirLines.Api.Controllers
             else 
                 return BadRequest("Your user or password is wrong");
         }
+        
     }
 }
