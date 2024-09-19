@@ -8,18 +8,18 @@ namespace PangolimAirLines.Api.Controllers
     [ApiController]
     public class LoginController : ControllerBase
     {
-        private readonly IMongoDbRepository _dbRepository;
+        private readonly IOrganizationRepository _organizationRepository;
 
-        public LoginController(IMongoDbRepository dbRepository)
+        public LoginController(IOrganizationRepository organizationRepository)
         {
-            _dbRepository = dbRepository;
+            _organizationRepository = organizationRepository;
         }
 
         [HttpPost("v1/Login")]
         public async Task<ActionResult<dynamic>> Login(
             [FromBody] Organizations model)
         {
-            var result = await _dbRepository.Login(model);
+            var result = await _organizationRepository.Login(model);
             if (result == true)
             {
                 var token = TokenService.GenerateToken(model);

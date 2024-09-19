@@ -1,6 +1,8 @@
-namespace PangolimAirLines.Api.Controllers;
+using Microsoft.AspNetCore.Mvc;
 
-public class OrganizationController
+namespace PangolimAirLines.Api.Controllers;
+[ApiController]
+public class OrganizationController : ControllerBase
 {
     
 }
