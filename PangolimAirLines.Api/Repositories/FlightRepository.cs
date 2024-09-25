@@ -9,12 +9,31 @@ namespace PangolimAirLines.Api.Repositories;
 
 public class FlightRepository : IFlightRepository
 {
-        private readonly IMongoCollection<Flights> _flightsCollection;
-        public FlightRepository(IOptions<MongoDBSettings> mongoDBSettings)
+    private readonly IMongoCollection<Flights> _flightsCollection;
+    public FlightRepository(MongoDbContext context)
+    {
+        _flightsCollection = context.FlightsCollection;
+    }
+
+        public async Task<bool> BookFlight(string id, int reservedSits)
         {
-            MongoClient client = new MongoClient(mongoDBSettings.Value.ConnectionURI);
-            IMongoDatabase database = client.GetDatabase(mongoDBSettings.Value.DatabaseName);
-            _flightsCollection = database.GetCollection<Flights>(mongoDBSettings.Value.FlightsCollection);
+            try
+            {
+                var flight = await _flightsCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
+                if (flight.AvailableSits > reservedSits)
+                {
+                    var filter = Builders<Flights>.Filter.Eq(x => x.Id, id);
+                    var update = Builders<Flights>.Update.Set(x => x.AvailableSits, flight.AvailableSits - reservedSits);
+                    await _flightsCollection.UpdateOneAsync(filter, update);
+                }
+                return true;
+            }
+            catch (Exception e)
+            {
+                MongoDbExeptionManager.HandleException(e);
+            }
+
+            return false;
         }
         
         public async Task<bool> CreateFlightAsync(Flights fly)
@@ -48,11 +67,15 @@ public class FlightRepository : IFlightRepository
             return 0;
         }
 
-        public Task<Flights> GetOneFlighAsync(string id)
+        public async Task<Flights?> GetOneFlightAsync(string id)
         {
             try
             {
-                return _flightsCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
+                var flight = await _flightsCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
+                if (flight != null)
+                {
+                    return flight;
+                }
             }
             catch (Exception e)
             {
@@ -61,26 +84,31 @@ public class FlightRepository : IFlightRepository
             return null;
         }
 
-        public Task<List<Flights>> GetAllFlightsAsync()
+        public async Task<List<Flights>> GetAllFlightsAsync()
         {
             try
             {
-                return _flightsCollection.Find(_ => true).ToListAsync();
+                var flight = await _flightsCollection.Find(_ => true).ToListAsync();
+                if (flight != null)
+                {
+                    return flight;
+                }
             }
             catch (Exception e)
             {
                 MongoDbExeptionManager.HandleException(e);
             }
 
-            return null;
+            var emptyReturnList = new List<Flights>();
+            
+            return emptyReturnList;
         }
 
         public async Task<bool> DeleteFlightAsync(string id)
         {
             try
             {
-                var filter = Builders<Flights>.Filter.Eq("Id", id);
-                await _flightsCollection.DeleteOneAsync(filter);
+                await _flightsCollection.DeleteOneAsync(x => x.Id == id);
                 return true;
             }
             catch (Exception e)

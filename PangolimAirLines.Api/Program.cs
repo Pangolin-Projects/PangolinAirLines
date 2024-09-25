@@ -35,6 +35,7 @@ builder.Services.AddAuthentication(x =>
 
 builder.Services.Configure<MongoDBSettings>(builder.Configuration.GetSection("MongoDBSettings"));
 builder.Services.AddSingleton<MongoDBSettings>();
+builder.Services.AddSingleton<MongoDbContext>();
 builder.Services.AddScoped<IFlightRepository, FlightRepository>();
 builder.Services.AddScoped<IOrganizationRepository, OrganizationRepository>();
 

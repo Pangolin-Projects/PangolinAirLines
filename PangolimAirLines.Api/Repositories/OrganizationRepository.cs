@@ -9,11 +9,9 @@ namespace PangolimAirLines.Api.Repositories;
 public class OrganizationRepository : IOrganizationRepository
 {
     private readonly IMongoCollection<Organizations> _organizationCollection;
-    public OrganizationRepository(IOptions<MongoDBSettings> mongoDBSettings)
+    public OrganizationRepository(MongoDbContext context)
     {
-        MongoClient client = new MongoClient(mongoDBSettings.Value.ConnectionURI);
-        IMongoDatabase database = client.GetDatabase(mongoDBSettings.Value.DatabaseName);
-        _organizationCollection = database.GetCollection<Organizations>(mongoDBSettings.Value.OrganizationCollection);
+        _organizationCollection = context.OrganizationCollection;
     }
 
 
