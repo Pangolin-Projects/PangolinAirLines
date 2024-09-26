@@ -34,4 +34,51 @@ public class OrganizationRepository : IOrganizationRepository
             
         return false;
     }
+
+    public async Task<List<Organizations>> GetAllOrganizationsAsync()
+    {
+        try
+        {
+            var flight = await _organizationCollection.FindAsync(_ => true).GetAwaiter().GetResult().ToListAsync();
+            if (flight != null)
+            {
+                return flight;
+            }
+        }
+        catch (Exception e)
+        {
+            MongoDbExeptionManager.HandleException(e);
+        }
+        var emptyList = new List<Organizations>();
+            
+        return emptyList;
+    }
+
+    public async Task<bool> CreateOrganizationAsync(Organizations organization)
+    {
+        try
+        {
+            await _organizationCollection.InsertOneAsync(organization);
+            return true;
+        }
+        catch (Exception e)
+        {
+            MongoDbExeptionManager.HandleException(e);
+        }
+        return false;
+    }
+
+    public async Task<bool> DeleteOrganizationAsync(string id)
+    {
+        try
+        {
+            await _organizationCollection.DeleteOneAsync(x => x.Id == id);
+            return true;
+        }
+        catch (Exception e)
+        {
+            MongoDbExeptionManager.HandleException(e);
+        }
+        return false;
+    }
 }

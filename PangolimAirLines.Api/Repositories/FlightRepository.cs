@@ -20,13 +20,13 @@ public class FlightRepository : IFlightRepository
             try
             {
                 var flight = await _flightsCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
-                if (flight.AvailableSits > reservedSits)
+                if (flight.AvailableSits >= reservedSits)
                 {
                     var filter = Builders<Flights>.Filter.Eq(x => x.Id, id);
                     var update = Builders<Flights>.Update.Set(x => x.AvailableSits, flight.AvailableSits - reservedSits);
                     await _flightsCollection.UpdateOneAsync(filter, update);
+                    return true;
                 }
-                return true;
             }
             catch (Exception e)
             {
@@ -88,7 +88,7 @@ public class FlightRepository : IFlightRepository
         {
             try
             {
-                var flight = await _flightsCollection.Find(_ => true).ToListAsync();
+                var flight = await _flightsCollection.FindAsync(_ => true).GetAwaiter().GetResult().ToListAsync();
                 if (flight != null)
                 {
                     return flight;
@@ -99,9 +99,9 @@ public class FlightRepository : IFlightRepository
                 MongoDbExeptionManager.HandleException(e);
             }
 
-            var emptyReturnList = new List<Flights>();
+            var emptyList = new List<Flights>();
             
-            return emptyReturnList;
+            return emptyList;
         }
 
         public async Task<bool> DeleteFlightAsync(string id)

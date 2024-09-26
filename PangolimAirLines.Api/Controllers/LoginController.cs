@@ -15,7 +15,7 @@ namespace PangolimAirLines.Api.Controllers
             _organizationRepository = organizationRepository;
         }
 
-        [HttpPost("v1/Login")]
+        [HttpPost("v1/login")]
         public async Task<ActionResult<dynamic>> Login(
             [FromBody] Organizations model)
         {
