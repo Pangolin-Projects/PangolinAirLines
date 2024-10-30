@@ -23,7 +23,17 @@ namespace PangolimAirLines.Api.Controllers
             if (result == true)
             {
                 var token = TokenService.GenerateToken(model);
-                return token;
+                return Ok(
+                    new
+                    {
+                        result = true,
+                        message = "login success",
+                        data = new
+                        {
+                            token
+                        }
+                    }
+                );
             }
             else 
                 return BadRequest("Your user or password is wrong");
