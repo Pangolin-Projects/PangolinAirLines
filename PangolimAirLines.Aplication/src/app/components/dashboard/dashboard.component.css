@@ -1,38 +1,71 @@
-.login-container {
-  max-width: 300px;
-  margin: 0 auto;
-  padding: 2rem;
+/* Main container styling */
+div {
+  margin: 20px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Flight cards container - Grid layout with 3 columns */
+div > div {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 cards per row */
+  gap: 20px; /* Space between cards */
+  margin-bottom: 20px;
+}
+
+/* Flight card item styling */
+div > div > div {
+  padding: 15px;
+  background-color: #ffffff;
   border: 1px solid #ddd;
   border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
 }
 
-.form-group {
-  margin-bottom: 1rem;
+h1 {
+  font-size: 2em;
+  color: #333;
+  margin-bottom: 10px;
+  text-align: center;
+}
+/* Heading styling */
+h3 {
+  font-size: 1.4em;
+  color: #333;
+  margin-bottom: 10px;
 }
 
-label {
-  display: block;
-  margin-bottom: 0.5rem;
+/* Paragraph styling */
+p {
+  font-size: 1em;
+  color: #555;
+  margin: 5px 0;
 }
 
-input {
-  width: 100%;
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 3px;
+/* Strong element styling */
+strong {
+  color: #000;
 }
 
-button {
-  width: 100%;
-  padding: 0.5rem;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 3px;
-  cursor: pointer;
+/* No Flights message */
+ng-template {
+  text-align: center;
+  font-size: 1.2em;
+  color: #888;
+  margin-top: 30px;
 }
 
-button:hover {
-  background-color: #0056b3;
+/* Responsive: Adjust for smaller screens */
+@media (max-width: 1024px) {
+  div > div {
+    grid-template-columns: repeat(2, 1fr); /* 2 cards per row on medium screens */
+  }
+}
+
+@media (max-width: 768px) {
+  div > div {
+    grid-template-columns: 1fr; /* 1 card per row on small screens */
+  }
 }

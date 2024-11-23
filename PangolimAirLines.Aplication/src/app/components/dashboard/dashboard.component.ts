@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient, HttpClientModule, HttpHeaders} from "@angular/common/http";
 import {Flight} from "../../models/Flight";
-import {FormsModule} from "@angular/forms";
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [FormsModule, HttpClientModule],
+  imports: [ HttpClientModule, CommonModule],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
@@ -34,6 +34,7 @@ export class DashboardComponent implements OnInit {
     this.http.get<Flight[]>('http://localhost:5222/v1/flights', { headers })
       .subscribe({
         next: (result) => {
+          console.log('Fetched Flights:', result);
           this.flights = result.map(flight => new Flight(flight.id, flight.airCraft, flight.availableSits, flight.landing, flight.takeOff));
         },
         error: (err) => {
@@ -62,4 +63,3 @@ export class DashboardComponent implements OnInit {
     }*/
   }
 }
-
