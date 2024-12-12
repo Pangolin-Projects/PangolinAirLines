@@ -1,0 +1,35 @@
+<div class="container">
+    <div class="title">
+         <h1>Update</h1>
+         <h1 id="colored">Flight </h1>
+    </div>
+ 
+     <form (ngSubmit)="onEdit()">
+         <div class="inputGroup">
+             <label>Aircraft</label>
+             <input type="text"  class="inputs" name="airCraft">
+         </div>
+     
+     
+         <div class="inputGroup">
+             <label>Available Seats</label>
+             <input type="number" class="inputs" name="availableSeats" required>
+         </div>
+     
+     
+         <div class="inputGroup">
+             <label>Take Off</label>
+             <input type="text" class="inputs"  name="takeOff" required>
+         </div>
+ 
+         <div class="inputGroup">
+             <label>Landing</label>
+             <input type="text" class="inputs"  name="landing" required>
+         </div>
+ 
+         <button class="btn">Submit</button>
+     </form>
+ 
+  
+ </div>
+ 

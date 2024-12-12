@@ -5,6 +5,22 @@
   border: 1px solid #ddd;
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-top: 20%;
+}
+
+.title{
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.colored{
+  color: #007bff;
+}
+
+.text{
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20;
 }
 
 .form-group {

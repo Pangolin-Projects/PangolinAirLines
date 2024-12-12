@@ -60,7 +60,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseCors("AllowAnyOrigin");
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseRouting();
 app.UseAuthorization();
