@@ -16,17 +16,17 @@ export class EditComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private route: ActivatedRoute // Aqui está a injeção correta do ActivatedRoute
+    private route: ActivatedRoute 
   ) {}
 
   ngOnInit(): void {
-    // Pegando o ID da rota no momento que o componente é inicializado
+
     this.flightId = this.route.snapshot.paramMap.get('id');
     console.log('Flight ID:', this.flightId);
   }
 
   onEdit() {
     console.log('Edit button clicked. Flight ID:', this.flightId);
-    // Aqui você pode implementar a lógica de edição
+ 
   }
 }
