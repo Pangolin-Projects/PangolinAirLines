@@ -36,7 +36,7 @@ export class DashboardComponent implements OnInit {
       .subscribe({
         next: (result) => {
           console.log('Fetched Flights:', result);
-          this.flights = result.map(flight => new Flight(flight.id, flight.airCraft, flight.availableSeats, flight.landing, flight.takeOff));
+          this.flights = result.map(flight => new Flight(flight.id, flight.airCraft, flight.availableSits, flight.landing, flight.takeOff));
         },
         error: (err) => {
           this.error = err.message;

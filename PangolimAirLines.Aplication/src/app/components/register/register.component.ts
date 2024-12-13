@@ -23,7 +23,7 @@ export class RegisterComponent {
 
       const headers = new HttpHeaders({
         'Authorization': `Bearer ${token}`,
-      });
+      }); 
   
       this.http.post<Flight[]>('http://localhost:5222/v1/flight/',this.flight,{headers})
       .subscribe({

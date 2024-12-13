@@ -5,10 +5,9 @@
     <thead>
         <tr>
             <th>aircraft</th>
-            <th>Take off</th>
             <th>Landing</th>
+            <th>Take off</th>
             <th>Available Seats</th>
-            <th>Edit</th>
             <th>Delete</th>
         </tr>
     </thead>    
@@ -18,8 +17,7 @@
             <td>{{ flight.airCraft }}</td>
             <td>{{ flight.takeOff }}</td>
             <td>{{ flight.landing }}</td>
-            <td>{{ flight.availableSeats }}</td>
-            <td><Button (click) = "updateFlight(flight.id)">Editar</Button></td>
+            <td>{{ flight.availableSits }}</td>
             <td><Button (click) = "deleteFlight(flight.id)">Apagar</Button></td>
           </tr>
         </tbody>
