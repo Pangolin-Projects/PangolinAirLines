@@ -19,7 +19,7 @@ export class LoginComponent {
   }
   onLogin() {
     this.organization.email = 'latam';
-    this.organization.password = 'latam';
+    this.organization.password = 'latam'; 
     console.log(this.organization.email);
     console.log(this.organization.password);
     this.http.post('http://localhost:5222/v1/Login', this.organization).subscribe((res: any)=>

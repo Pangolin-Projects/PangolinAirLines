@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {HttpClient, HttpClientModule, HttpHeaders} from "@angular/common/http";
 import {Flight} from "../../models/Flight";
 import { CommonModule } from '@angular/common';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-dashboard',
@@ -15,7 +16,7 @@ export class DashboardComponent implements OnInit {
   flights: Flight[] = [];
   error: string | null = null;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router:Router) {
   }
 
 
@@ -43,6 +44,7 @@ export class DashboardComponent implements OnInit {
       });
 
 
+    
 
 
     /*onRegister()
@@ -61,5 +63,33 @@ export class DashboardComponent implements OnInit {
         alert("Error From API")
       })
     }*/
+  }
+
+  deleteFlight(id:string){
+    const token = localStorage.getItem("apiToken")
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+    });
+
+    this.http.delete<Flight[]>('http://localhost:5222/v1/flight/'+id,{headers})
+    .subscribe({
+      next: (result) => {
+       console.log(result)
+      },
+      error: (err) => {
+        this.error = err.message;
+      },
+    });
+
+
+  }
+
+  addNewFlight(){
+    this.router.navigate(['/register']);
+  }
+
+  updateFlight(id:string){
+    this.router.navigate(['/edit',id]);
   }
 }
