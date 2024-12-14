@@ -60,12 +60,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseCors("AllowAnyOrigin");
-
 app.UseHttpsRedirection();
-
 app.UseAuthentication();
-app.UseAuthorization();
 app.UseRouting();
+app.UseAuthorization();
 app.MapControllers();
 
 app.Run();

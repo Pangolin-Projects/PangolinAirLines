@@ -1,0 +1,30 @@
+<h1 class="dashboard-title">Available Flights</h1>
+
+<div class="container">
+  <table class="table">
+    <thead>
+        <tr>
+            <th>aircraft</th>
+            <th>Landing</th>
+            <th>Take off</th>
+            <th>Available Seats</th>
+            <th>Delete</th>
+        </tr>
+    </thead>    
+
+        <tbody>
+          <tr *ngFor="let flight of flights">
+            <td>{{ flight.airCraft }}</td>
+            <td>{{ flight.takeOff }}</td>
+            <td>{{ flight.landing }}</td>
+            <td>{{ flight.availableSits }}</td>
+            <td><Button (click) = "deleteFlight(flight.id)">Apagar</Button></td>
+          </tr>
+        </tbody>
+
+      
+        
+
+  </table>
+    <Button (click) = "addNewFlight()" class="btn"> Add New Flight</Button>
+</div>
